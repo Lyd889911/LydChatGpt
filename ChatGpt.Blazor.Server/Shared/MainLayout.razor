@@ -1,0 +1,48 @@
+﻿@inherits LayoutComponentBase
+
+<MApp Id="inspire">
+    <MNavigationDrawer @bind-Value="_drawer" App>
+        @foreach (var item in _items)
+        {
+            <MListItem Link Href="@item.Path">
+                <MListItemIcon>
+                    <MIcon>@item.Icon</MIcon>
+                </MListItemIcon>
+
+                <MListItemContent>
+                    <MListItemTitle>@item.Title</MListItemTitle>
+                </MListItemContent>
+            </MListItem>
+        }
+
+    </MNavigationDrawer>
+
+    <MAppBar App>
+        <MAppBarNavIcon @onclick="()=>_drawer = !_drawer"></MAppBarNavIcon>
+
+        <MToolbarTitle>Application</MToolbarTitle>
+    </MAppBar>
+
+    <MMain>
+        @Body
+        <!-- Your content -->
+    </MMain>
+</MApp>
+
+@code {
+    bool _drawer;
+}
+@code {
+    class Item
+    {
+        public string Title { get; set; }
+        public string Icon { get; set; }
+        public string Path{ get; set; }
+    }
+
+    private Item[] _items = new Item[]
+    {
+         new Item{ Title= "ChatGPT", Icon= "mdi-chat-question" ,Path="/"},
+         new Item { Title= "用户设置", Icon= "mdi-badge-account-outline" ,Path="/user"}
+    };
+}

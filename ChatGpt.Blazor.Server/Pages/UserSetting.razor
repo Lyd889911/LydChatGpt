@@ -1,0 +1,70 @@
+﻿@page "/user"
+
+<MRow Class="div-setting">
+    <MCol Cols="6" Offset="3">
+        <MRow>
+            <MCol Cols="6">
+                <MTextField 
+                    Label="用户账号"
+                    @bind-Value="userId">
+                </MTextField>
+            </MCol>
+            <MCol Cols="6">
+                <MTextField 
+                    Label="用户密码"
+                    @bind-Value="password">
+                </MTextField>
+            </MCol>
+            <MCol Cols="6">
+                <MTextField 
+                    Label="API_KEY"
+                    @bind-Value="apiKey">
+                </MTextField>
+            </MCol>
+            <MCol Cols="6">
+                <MTextField 
+                    Label="API地址"
+                    @bind-Value="apiAddress">
+                </MTextField>
+            </MCol>
+            <MCol Cols="12">
+                <MTextField 
+                    Label="ChatGPT系统角色Cosplay"
+                    @bind-Value="chatgptSystem">
+                </MTextField>
+            </MCol>
+            <MCol Cols="6">
+                <MTextField 
+                    Label="ChatGPT最大Token数量（推荐2000，最大4000）"
+                    Type="number"
+                    @bind-Value="maxToken">
+                </MTextField>
+            </MCol>
+            <MCol Cols="6">
+                <MTextField Label="ChatGPT温度（默认0.1，范围0-1，0是最聪明，1是最笨）"
+                    Type="number"
+                    @bind-Value="temperature">
+                </MTextField>
+            </MCol>
+            <MCol Cols="6">
+                <MFileInput
+	                TruncateLength="50"
+                    Label="ChatGPT头像上传"
+                    @bind-Value="aiAvatarPath">
+                </MFileInput>
+            </MCol>
+            <MCol Cols="6">
+                <MFileInput TruncateLength="50"
+                            Label="你的头像上传"
+                            @bind-Value="yourAvatarPath">
+                </MFileInput>
+            </MCol>
+        </MRow>
+    </MCol>
+</MRow>
+
+<style>
+    .div-setting{
+        margin-top:20px;
+    }
+</style>

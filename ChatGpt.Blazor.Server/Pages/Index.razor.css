@@ -1,0 +1,22 @@
+﻿.div-chat {
+    display: inline-block;
+    max-width: 100%; /* 限制最大宽度为父元素宽度的100% */
+}
+
+.div-chat-parent {
+    text-align: right;
+}
+
+pre {
+    display: block;
+    overflow-x: auto;
+    padding: 1em;
+    color: #abb2bf;
+    background: #282c34;
+    font-size: 20px;
+    font-family: Gintronic;
+}
+chat-md{
+    margin:0px !important;
+    padding:0px !important;
+}

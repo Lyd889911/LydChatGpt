@@ -1,0 +1,123 @@
+﻿@page "/"
+
+<div @ref="scrollElement" >
+    @foreach (var chat in chats)
+    {
+        if (chat.IsBot)
+        {
+            @*ChatGPT的聊天框*@
+            <MRow>
+                <MCol Cols="1">
+                    <MRow>
+                        <MCol Cols="6" Offset="6">
+                            <MAvatar>
+                                <MImage Src="/avatar/caomeixiong.webp" Alt="ChatGpt"></MImage>
+                            </MAvatar>
+                        </MCol>
+                    </MRow>
+                </MCol>
+                <MCol Cols="9">
+                    <MCard Elevation=12 Class="rounded-xl div-chat">
+                        <MCardText>
+                            <div>
+                                <MMarkdownIt Source="@chat.Message"
+                                     Html="@html"
+                                     Breaks="breaks"
+                                     Linkify="linkify"
+                                     Typographer="typographer"
+                                     HeaderSections="true" />
+                            </div>
+                            <div class="div-chatinfo">
+                                <span>ChatId：@chat.ChatId<br /></span>
+                                <sapn>Time：@chat.CreationTime</sapn>
+                            </div>
+                        </MCardText>
+                    </MCard>
+                </MCol>
+            </MRow>
+        }
+        else
+        {
+            @*我的聊天框*@
+            <MRow>
+                <MCol Cols="9" Offset="2" Class="div-chat-parent">
+                    <MCard Elevation=12 Class="rounded-xl div-chat">
+                        <MCardText>
+                            <div>
+                                <MMarkdownIt Source="@chat.Message"
+                                     Html="@html"
+                                     Breaks="breaks"
+                                     Linkify="linkify"
+                                     Typographer="typographer" />
+                            </div>
+                            <div class="div-chatinfo">
+                                <sapn>Time：<span>@chat.CreationTime</span></sapn>
+                            </div>
+                        </MCardText>
+                    </MCard>
+                </MCol>
+                <MCol Cols="1">
+                    <MAvatar>
+                        <MImage Src="/avatar/a.jpeg" Alt="Me"></MImage>
+                    </MAvatar>
+                </MCol>
+            </MRow>
+        }
+    }
+</div>
+
+
+@*最底部的输入框*@
+
+<MFooter App
+            Color="transparent"
+            Height="72"
+            Inset>
+            <MTextField Dense
+                        Flat
+                        HideDetails="@("true")"
+                        Rounded
+                        SoloInverted
+                        @bind-Value="message"
+                        OnEnter="EnterMeessage"
+            ></MTextField>
+    <MButton class="mx-2"
+             Fab
+             Small
+             Dark
+             Color="pink"
+             OnClick="SendMessage">
+        <MIcon>send</MIcon>
+    </MButton>
+</MFooter>
+
+            <style>
+        .div-chat {
+            display: inline-block;
+            max-width: 100%; /* 限制最大宽度为父元素宽度的100% */
+        }
+
+        .div-chat-parent {
+            text-align: right;
+        }
+
+        pre {
+            display: block;
+            overflow-x: auto;
+            padding: 1em;
+            color: #abb2bf;
+            background: #282c34;
+            font-size: 16px;
+            font-family: Gintronic;
+        }
+
+        .div-chat p {
+            margin: 0px !important;
+            padding: 0px !important;
+        }
+        .div-chatinfo{
+            font-size:10px;
+            color: #c3cfe2
+        }
+
+            </style>

@@ -1,0 +1,70 @@
+﻿@using Microsoft.AspNetCore.Components.Web
+@namespace ChatGpt.Blazor.Server.Pages
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <base href="~/" />
+    <link rel="stylesheet" href="css/bootstrap/bootstrap.min.css" />
+    <link href="css/site.css" rel="stylesheet" />
+    <link href="ChatGpt.Blazor.Server.styles.css" rel="stylesheet" />
+    <component type="typeof(HeadOutlet)" render-mode="ServerPrerendered" />
+    <!-- masa blazor css style -->
+<link href="_content/Masa.Blazor/css/masa-blazor.min.css" rel="stylesheet" />
+
+<!--icon file,import need to use-->
+<link href="https://cdn.masastack.com/npm/@("@mdi")/font@7.1.96/css/materialdesignicons.min.css" rel="stylesheet">
+<link href="https://cdn.masastack.com/npm/materialicons/materialicons.css" rel="stylesheet">
+<link href="https://cdn.masastack.com/npm/fontawesome/v5.0.13/css/all.css" rel="stylesheet">
+
+<!--js(should lay the end of file)-->
+<script src="_content/BlazorComponent/js/blazor-component.js"></script>
+<script src="
+https://cdn.jsdelivr.net/npm/markdown-it@13.0.1/dist/markdown-it.min.js
+"></script>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@11.7.0/styles/atom-one-dark.css">
+    <script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.7.0/build/highlight.min.js"></script>
+</head>
+<body>
+    @RenderBody()
+
+    <div id="blazor-error-ui">
+        <environment include="Staging,Production">
+            An error has occurred. This application may no longer respond until reloaded.
+        </environment>
+        <environment include="Development">
+            An unhandled exception has occurred. See browser dev tools for details.
+        </environment>
+        <a href="" class="reload">Reload</a>
+        <a class="dismiss">🗙</a>
+    </div>
+
+    <script src="_framework/blazor.server.js"></script>
+    <script autostart="false">
+        window.scrollToEnd2 = function () {
+            console.log("执行了方法scroll");
+            window.scrollTo(0,document.documentElement.scrollHeight);
+        }
+    </script>
+</body>
+</html>
+
+<script>
+    window.onload = function () {
+        console.log("打印");
+        // 获取所有的div元素
+        const divs = document.getElementsByTagName('pre');
+        console.log(divs.length);
+        console.log(divs);
+        // 遍历所有的div元素，并为它们添加一个class
+        for (let i = 0; i < divs.length; i++) {
+            divs[i].classList.add('hljs');
+            console.log(divs[i]);
+        }
+    };
+
+</script>
