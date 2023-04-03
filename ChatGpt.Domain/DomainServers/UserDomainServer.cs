@@ -1,4 +1,5 @@
-﻿using ChatGpt.Domain.Entities.Users;
+﻿using ChatGpt.Domain.Entities.Files;
+using ChatGpt.Domain.Entities.Users;
 using ChatGpt.Domain.Repositorys;
 using ChatGpt.Shared.Exceptions;
 using System;
@@ -16,12 +17,33 @@ namespace ChatGpt.Domain.DomainServers
         {
             this._userRepository = userRepository;
         }
+        public User CreateUser(string userName, string password, FileItem avatar, int maxUseCountDaily = 20)
+        {
+            return new User(userName,password,avatar,maxUseCountDaily);
+        }
         public async Task<User> AddUserAsync(User user)
         {
-            var exist = await _userRepository.IsExistByUserName(user.UserName);
-            if (exist)
+            var existUser = await _userRepository.FirstAsync(user.Id);
+            if (user.Equals(existUser))
                 throw new ExistException("用户名已存在");
             return await _userRepository.AddAsync(user);
+        }
+        public async Task<User> LoginAsync(string username,string password)
+        {
+            var user = await _userRepository.FirstAsync(username);
+            bool b = user.CheckPassword(password);
+            if (b)
+                return user;
+            else
+                throw new LoginException("账号密码错误");
+        }
+        public async Task<User> UpdateUserAsync(Guid id,string username,string password,FileItem avatar) 
+        {
+            var user = await _userRepository.FirstAsync(id);
+            user.SetUserName(username);
+            user.SetPassword(password);
+            user.SetAvatar(avatar);
+            return user;
         }
     }
 }

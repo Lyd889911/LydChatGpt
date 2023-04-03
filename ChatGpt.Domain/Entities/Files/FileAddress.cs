@@ -14,10 +14,15 @@ namespace ChatGpt.Domain.Entities.Files
         /// <summary>
         /// 访问地址
         /// </summary>
-        public string? Access { get; set; }
+        public Uri? Access { get; set; }
         /// <summary>
         /// 备份地址
         /// </summary>
-        public string? Backup { get; set; }
+        public Uri? Backup { get; set; }
+        internal FileAddress(Uri? access,Uri? backup)
+        {
+            this.Access = access;
+            this.Backup = backup;
+        }
     }
 }

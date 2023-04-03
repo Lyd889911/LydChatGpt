@@ -21,11 +21,11 @@ namespace ChatGpt.Domain.Entities.Users
         {
 
         }
-        public User(string userName, string password, Guid avatarId,int maxUseCountDaily)
+        internal User(string userName, string password, FileItem avatar,int maxUseCountDaily)
         {
             UserName = userName;
             PasswordHash = HashHelper.ComputeSha256Hash(password);
-            AvatarId = avatarId;
+            AvatarId = avatar.Id;
             MaxUseCountDaily = maxUseCountDaily;
             SurplusUserCountDaily = maxUseCountDaily;
         }
@@ -34,17 +34,20 @@ namespace ChatGpt.Domain.Entities.Users
         {
             return PasswordHash == HashHelper.ComputeSha256Hash(password) ? true : false;
         }
-        public void UpdatePassword(string newPassword)
+        public void SetPassword(string newPassword)
         {
-            PasswordHash = HashHelper.ComputeSha256Hash(newPassword);
+            if(!string.IsNullOrEmpty(newPassword))
+                PasswordHash = HashHelper.ComputeSha256Hash(newPassword);
         }
-        public void UpdateAvatar(Guid avatarId)
+        public void SetAvatar(FileItem avatar)
         {
-            AvatarId = avatarId;
+            if(avatar!=null)
+                AvatarId = avatar.Id;
         }
-        public void UpdateUserName(string userName)
+        public void SetUserName(string userName)
         {
-            UserName = userName;
+            if(!string.IsNullOrEmpty(userName))
+                UserName = userName;
         }
         public void UseAI()
         {
@@ -56,6 +59,10 @@ namespace ChatGpt.Domain.Entities.Users
         public void ResumeAICount()
         {
             SurplusUserCountDaily=MaxUseCountDaily;
+        }
+        public bool Equals(User user)
+        {
+            return this.UserName == user.UserName;
         }
 
     }
