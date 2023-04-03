@@ -27,10 +27,10 @@ namespace ChatGpt.Core
             var values = new
             {
                 model = "gpt-3.5-turbo", // 使用的模型
-                temperature = 01,
+                temperature = 0.1,
                 max_tokens = 2000,
                 stream = true,
-                user = "token",
+                user = "lyd",
                 messages
             };
 
