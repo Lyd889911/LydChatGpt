@@ -9,8 +9,8 @@ namespace ChatGpt.Domain.Repositorys
 {
     public interface IFileItemRepository
     {
-        Task<FileItem> FirstAsync(Guid id);
-        Task<FileItem> FirstAsync(string hash);
-        Task<FileItem> AddAsync(FileItem file);
+        Task<Avatar> FirstAsync(Guid id);
+        Task<Avatar> FirstAsync(string hash);
+        Task<Avatar> AddAsync(Avatar file);
     }
 }

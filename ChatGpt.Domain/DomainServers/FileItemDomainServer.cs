@@ -1,4 +1,4 @@
-﻿using ChatGpt.Domain.Entities.Files;
+﻿using ChatGpt.Domain.Entities.Users.Files;
 using ChatGpt.Domain.Repositorys;
 using ChatGpt.Shared;
 using ChatGpt.Shared.Enums;
@@ -21,7 +21,7 @@ namespace ChatGpt.Domain.DomainServers
             this._backupClient = storageClients.First(s => s.StorageType == StorageType.Backup);
             this._remoteClient = storageClients.First(s => s.StorageType == StorageType.Public);
         }
-        public async Task<FileItem> UploadAsync(Stream stream, string fileName, CancellationToken cancellationToken=default)
+        public async Task<Avatar> UploadAsync(Stream stream, string fileName, CancellationToken cancellationToken=default)
         {
             string hash = HashHelper.ComputeSha256Hash(stream);
             long length = stream.Length;
@@ -40,7 +40,7 @@ namespace ChatGpt.Domain.DomainServers
             Uri? remoteUrl = await _remoteClient.SaveAsync(key, stream, cancellationToken);
             stream.Position = 0;
             //领域服务并不会真正的执行数据库插入，只是把实体对象生成，然后由应用服务和基础设施配合来真正的插入数据库！
-            return new FileItem(fileName, hash, length,new FileAddress(remoteUrl,backupUrl));
+            return new Avatar(fileName, hash, length,new FileAddress(remoteUrl,backupUrl));
         }
     }
 }

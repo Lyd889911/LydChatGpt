@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ChatGpt.Domain.Entities.Settings.ChatGpt
+namespace ChatGpt.Domain.Entities.Users.ChatGpt
 {
 
     public class Image

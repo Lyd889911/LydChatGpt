@@ -9,13 +9,15 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ChatGpt.Blazor.Server", "Ch
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ChatGpt.Core", "ChatGpt.Core\ChatGpt.Core.csproj", "{971B8242-26DB-4B4C-8A05-A556218BA8C2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChatGpt.WebApi", "ChatGpt.WebApi\ChatGpt.WebApi.csproj", "{5C39AE91-F5EA-4900-B98A-50A3539A7BEB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ChatGpt.WebApi", "ChatGpt.WebApi\ChatGpt.WebApi.csproj", "{5C39AE91-F5EA-4900-B98A-50A3539A7BEB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChatGpt.Domain", "ChatGpt.Domain\ChatGpt.Domain.csproj", "{2564279B-64B5-459F-BE6C-FE669CDEA29E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ChatGpt.Domain", "ChatGpt.Domain\ChatGpt.Domain.csproj", "{2564279B-64B5-459F-BE6C-FE669CDEA29E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChatGpt.Shared", "ChatGpt.Shared\ChatGpt.Shared.csproj", "{A1358608-44A4-4CD1-A4F7-9DC3471C5C74}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ChatGpt.Shared", "ChatGpt.Shared\ChatGpt.Shared.csproj", "{A1358608-44A4-4CD1-A4F7-9DC3471C5C74}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChatGpt.Infrastructure", "ChatGpt.Infrastructure\ChatGpt.Infrastructure.csproj", "{6CA70978-EEEC-4096-B1A9-F43121003DF6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ChatGpt.Infrastructure", "ChatGpt.Infrastructure\ChatGpt.Infrastructure.csproj", "{6CA70978-EEEC-4096-B1A9-F43121003DF6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChatGpt.Migration", "ChatGpt.Migration\ChatGpt.Migration.csproj", "{3C0F3C24-CF54-44B9-80A0-B8B62DA0C129}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -51,6 +53,10 @@ Global
 		{6CA70978-EEEC-4096-B1A9-F43121003DF6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6CA70978-EEEC-4096-B1A9-F43121003DF6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6CA70978-EEEC-4096-B1A9-F43121003DF6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3C0F3C24-CF54-44B9-80A0-B8B62DA0C129}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3C0F3C24-CF54-44B9-80A0-B8B62DA0C129}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3C0F3C24-CF54-44B9-80A0-B8B62DA0C129}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3C0F3C24-CF54-44B9-80A0-B8B62DA0C129}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

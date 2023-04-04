@@ -6,26 +6,43 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ChatGpt.Domain.Entities.Settings.ChatGpt
+namespace ChatGpt.Domain.Entities.Users.ChatGpt
 {
 
-    public class ChatGptSetting:AggregateRoot
+    public class ChatGptSetting:IHasCreationCreator,IHasModificationCreator
     {
+        public Guid Id { get; set; }
         public string ApiKey { get;private set; }
-        public Guid AvatarId { get;private set; }
+        public Uri? Avatar { get;private set; }
         public Chat Chat { get;private set; }
         public Image Image { get;private set; }
         public Guid UserId { get;private set; }
+        public User User { get;private set; }
+
+        public Guid? CreatorId { get; private set; }
+
+        public DateTime CreationTime { get; private set; }
+
+        public DateTime? ModificationTime { get; private set; }
+
+        public Guid? ModifierId { get; private set; }
+
         private ChatGptSetting()
         {
 
         }
-        public ChatGptSetting(Guid userId, Guid avatarId) :base(userId)
+        public ChatGptSetting(User user)
         {
-            this.UserId = userId;
-            this.AvatarId = avatarId;
+            this.Id = Guid.NewGuid();
+            this.UserId = user.Id;
+            this.User = user;
+            this.Avatar = user.Avatar;
             Chat = new(2000, 0.1m);
             Image = new(2, ChatGptImageSize._512);
+            CreationTime=DateTime.Now;
+            ModificationTime=DateTime.Now;
+            ModifierId=user.Id;
+            CreatorId=user.Id;
         }
         
         public void SetApiKey(string apikey)

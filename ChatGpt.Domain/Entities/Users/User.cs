@@ -1,4 +1,5 @@
-﻿using ChatGpt.Domain.Entities.Files;
+﻿
+using ChatGpt.Domain.Entities.Users.ChatGpt;
 using ChatGpt.Shared;
 using ChatGpt.Shared.Base;
 using System;
@@ -6,6 +7,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ChatGpt.Shared.Enums;
+using ChatGpt.Domain.Permissions;
 
 namespace ChatGpt.Domain.Entities.Users
 {
@@ -13,21 +16,25 @@ namespace ChatGpt.Domain.Entities.Users
     {
         public string UserName { get; private set; }
         public string PasswordHash { get; private set; }
-        public Guid AvatarId { get; private set; }
+        public Uri? Avatar { get; private set; }
         public int MaxUseCountDaily { get; private set; }
         public int SurplusUserCountDaily { get; private set; }
+        public ChatGptSetting ChatGptSetting { get; private set; }
+        public UserRole Role { get; private set; }
 
         private User()
         {
 
         }
-        internal User(string userName, string password, FileItem avatar,int maxUseCountDaily)
+        internal User(string userName, string password, Uri? avatar,int maxUseCountDaily)
         {
             UserName = userName;
             PasswordHash = HashHelper.ComputeSha256Hash(password);
-            AvatarId = avatar.Id;
+            Avatar = avatar;
             MaxUseCountDaily = maxUseCountDaily;
             SurplusUserCountDaily = maxUseCountDaily;
+            ChatGptSetting = new ChatGptSetting(this);
+            Role = UserRole.NormalUser;
         }
 
         public bool CheckPassword(string password)
@@ -39,10 +46,10 @@ namespace ChatGpt.Domain.Entities.Users
             if(!string.IsNullOrEmpty(newPassword))
                 PasswordHash = HashHelper.ComputeSha256Hash(newPassword);
         }
-        public void SetAvatar(FileItem avatar)
+        public void SetAvatar(Uri? avatar)
         {
             if(avatar!=null)
-                AvatarId = avatar.Id;
+                Avatar = avatar;
         }
         public void SetUserName(string userName)
         {
@@ -60,10 +67,17 @@ namespace ChatGpt.Domain.Entities.Users
         {
             SurplusUserCountDaily=MaxUseCountDaily;
         }
+        public void SetRole(UserRole role)
+        {
+            this.Role = role;
+        }
         public bool Equals(User user)
         {
             return this.UserName == user.UserName;
         }
-
+        public List<Permission> GetPermissions()
+        {
+            return PermissionManagement.Permissions(Role);
+        }
     }
 }

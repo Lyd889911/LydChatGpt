@@ -17,7 +17,7 @@ namespace ChatGpt.Domain.DomainServers
         {
             this._userRepository = userRepository;
         }
-        public User CreateUser(string userName, string password, FileItem avatar, int maxUseCountDaily = 20)
+        public User CreateUser(string userName, string password, Avatar avatar, int maxUseCountDaily = 20)
         {
             return new User(userName,password,avatar,maxUseCountDaily);
         }
@@ -37,7 +37,7 @@ namespace ChatGpt.Domain.DomainServers
             else
                 throw new LoginException("账号密码错误");
         }
-        public async Task<User> UpdateUserAsync(Guid id,string username,string password,FileItem avatar) 
+        public async Task<User> UpdateUserAsync(Guid id,string username,string password,Avatar avatar) 
         {
             var user = await _userRepository.FirstAsync(id);
             user.SetUserName(username);
