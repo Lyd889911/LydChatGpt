@@ -15,7 +15,10 @@ namespace ChatGpt.Infrastructure.Configs
         {
             builder.ToTable("chatgptsetting");
             builder.HasKey(x => x.Id);
-            builder.OwnsOne(x => x.Chat);
+            builder.OwnsOne(x => x.Chat, x =>
+            {
+                x.Property(x => x.Temperature).HasMaxLength(2);
+            });
             builder.OwnsOne(x => x.Image, x =>
             {
                 x.Property(x => x.Size).HasConversion<string>();

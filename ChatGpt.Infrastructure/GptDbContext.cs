@@ -12,7 +12,16 @@ namespace ChatGpt.Infrastructure
         {
 
         }
-
+        public GptDbContext()
+        {
+            
+        }
+        //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        //{
+        //    base.OnConfiguring(optionsBuilder);
+        //    string connStr = "Server=localhost;User ID=root;Password=123456;DataBase=gpt;";
+        //    optionsBuilder.UseMySql(connStr, new MySqlServerVersion("8.0.30"));
+        //}
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);

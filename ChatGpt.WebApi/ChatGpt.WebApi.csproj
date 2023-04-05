@@ -6,4 +6,13 @@
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\ChatGpt.Infrastructure\ChatGpt.Infrastructure.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Dtos\Requests\" />
+    <Folder Include="Dtos\Responses\" />
+  </ItemGroup>
+
 </Project>

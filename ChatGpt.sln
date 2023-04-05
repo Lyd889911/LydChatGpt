@@ -17,7 +17,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ChatGpt.Shared", "ChatGpt.S
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ChatGpt.Infrastructure", "ChatGpt.Infrastructure\ChatGpt.Infrastructure.csproj", "{6CA70978-EEEC-4096-B1A9-F43121003DF6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChatGpt.Migration", "ChatGpt.Migration\ChatGpt.Migration.csproj", "{3C0F3C24-CF54-44B9-80A0-B8B62DA0C129}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChatGpt.DbMigration", "ChatGpt.DbMigration\ChatGpt.DbMigration.csproj", "{A6C03F5C-4A5C-4703-A0B4-E74C1D203E83}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -53,10 +53,10 @@ Global
 		{6CA70978-EEEC-4096-B1A9-F43121003DF6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6CA70978-EEEC-4096-B1A9-F43121003DF6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6CA70978-EEEC-4096-B1A9-F43121003DF6}.Release|Any CPU.Build.0 = Release|Any CPU
-		{3C0F3C24-CF54-44B9-80A0-B8B62DA0C129}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{3C0F3C24-CF54-44B9-80A0-B8B62DA0C129}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{3C0F3C24-CF54-44B9-80A0-B8B62DA0C129}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{3C0F3C24-CF54-44B9-80A0-B8B62DA0C129}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A6C03F5C-4A5C-4703-A0B4-E74C1D203E83}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A6C03F5C-4A5C-4703-A0B4-E74C1D203E83}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A6C03F5C-4A5C-4703-A0B4-E74C1D203E83}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A6C03F5C-4A5C-4703-A0B4-E74C1D203E83}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
