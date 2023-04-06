@@ -10,6 +10,7 @@ namespace ChatGpt.Domain.Entities.Permissions
     public class Role:AggregateRoot
     {
         public string Name { get; set; }
+        public List<RolePermission> RolePermissions { get; set; }
         public Role(string name)
         {
             this.Name = name;

@@ -9,11 +9,11 @@ namespace ChatGpt.Domain.Entities.Permissions
 {
     public class Permission:AggregateRoot
     {
-        public string Name { get; set; }
-        public string Description { get; set; }
-        public string Path { get; set; }
-        public Guid ParentId { get; set; }
-        public string Icon { get; set; }
+        public string? Name { get; set; }
+        public string? Description { get; set; }
+        public string? Path { get; set; }
+        public Guid? ParentId { get; set; }
+        public string? Icon { get; set; }
         public Permission(string name,string description,string path,Guid parentid,string icon)
         {
             this.Name = name;
