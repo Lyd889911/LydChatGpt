@@ -16,20 +16,20 @@ namespace ChatGpt.Infrastructure.Repositorys
         {
             this._gptDbContext = _gptDbContext;
         }
-        public Task<User> AddAsync(User user)
+        public async Task AddAsync(User user)
         {
-            _gptDbContext.Users.Add(user);
-            return Task.FromResult(user);
+            await _gptDbContext.Users.AddAsync(user);
         }
 
-        public Task DeleteAsync(Guid userid)
+        public async Task DeleteAsync(Guid userid)
         {
-            throw new NotImplementedException();
+            var user = await _gptDbContext.Users.FindAsync(userid);
+            user.Delete();
         }
 
-        public Task<User?> FirstAsync(Guid id)
+        public async Task<User?> FindAsync(Guid id)
         {
-            return _gptDbContext.Users.FirstOrDefaultAsync(x=>x.Id== id);
+            return await _gptDbContext.Users.FindAsync(id);
         }
 
         public Task<User?> FirstAsync(string username)
@@ -37,7 +37,7 @@ namespace ChatGpt.Infrastructure.Repositorys
             throw new NotImplementedException();
         }
 
-        public Task<User> UpdateAsync(User user)
+        public Task UpdateAsync(User user)
         {
             throw new NotImplementedException();
         }

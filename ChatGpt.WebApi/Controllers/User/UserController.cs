@@ -1,6 +1,8 @@
-﻿using ChatGpt.Domain.DomainServers;
+﻿using AutoMapper;
+using ChatGpt.Domain.DomainServers;
 using ChatGpt.Domain.Entities.Users;
 using ChatGpt.Infrastructure;
+using ChatGpt.Shared.Enums;
 using ChatGpt.WebApi.Attributes;
 using ChatGpt.WebApi.Controllers.User.Dtos;
 using Microsoft.AspNetCore.Http;
@@ -14,6 +16,7 @@ namespace ChatGpt.WebApi.Controllers.User
     {
         private readonly UserDomainServer _userDomainServer;
         private readonly GptDbContext _gptDbContext;
+        private readonly IMapper _mapper;
         public UserController(UserDomainServer userDomainServer, GptDbContext gptDbContext)
         {
             this._userDomainServer = userDomainServer;
@@ -23,16 +26,16 @@ namespace ChatGpt.WebApi.Controllers.User
         [UnitOfWork(typeof(GptDbContext))]
         public async Task<UserDto> Add(AddUserDto userDto)
         {
-            var user = _userDomainServer.CreateUser(userDto.UserName, userDto.Password, new Uri("http://localhost:5166/a.jpeg"));
+            var user = _userDomainServer.CreateUser(userDto.UserName, userDto.Password,userDto.Role);
             user = await _userDomainServer.AddUserAsync(user);
-            return new UserDto()
-            {
-                UserName = user.UserName,
-                Avatar = user.Avatar,
-                MaxUseCountDaily = user.MaxUseCountDaily,
-                SurplusUserCountDaily = user.SurplusUserCountDaily,
-                Role = user.Role,
-            };
+            return _mapper.Map<UserDto>(user);
+            //return new UserDto()
+            //{
+            //    UserName = user.UserName,
+            //    Avatar = user.Avatar,
+            //    MaxUseCountDaily = user.MaxUseCountDaily,
+            //    SurplusUserCountDaily = user.SurplusUserCountDaily,
+            //};
         }
         [HttpPost]
         [UnitOfWork(typeof(GptDbContext))]
@@ -45,7 +48,6 @@ namespace ChatGpt.WebApi.Controllers.User
                 Avatar = user.Avatar,
                 MaxUseCountDaily = user.MaxUseCountDaily,
                 SurplusUserCountDaily = user.SurplusUserCountDaily,
-                Role = user.Role,
             };
         }
     }

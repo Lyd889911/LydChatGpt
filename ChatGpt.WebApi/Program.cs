@@ -5,6 +5,7 @@ using ChatGpt.Infrastructure.Repositorys;
 using ChatGpt.WebApi.Filters;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -16,8 +17,7 @@ builder.Services.Configure<MvcOptions>(x =>
     x.Filters.Add<UnitOfWorkFilter>();
 });
 builder.Services.AddInfrastructure();
-builder.Services.AddScoped<IUserRepository, UserRepository>();
-builder.Services.AddScoped<UserDomainServer>();
+builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());
 
 
 var app = builder.Build();

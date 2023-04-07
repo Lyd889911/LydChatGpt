@@ -6,12 +6,12 @@ using System.Threading.Tasks;
 
 namespace ChatGpt.Shared.Enums
 {
-    /// <summary>
-    /// 角色
-    /// </summary>
-    public enum UserRole
+    public enum Role
     {
         SuperAdmin,
-        NormalUser
+        Admin,
+        SVip,
+        Vip,
+        Guest
     }
 }

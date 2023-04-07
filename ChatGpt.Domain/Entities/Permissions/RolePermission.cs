@@ -1,4 +1,5 @@
-﻿using ChatGpt.Shared.Base;
+﻿using ChatGpt.Domain.Entities.Users;
+using ChatGpt.Shared.Base;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,17 +17,14 @@ namespace ChatGpt.Domain.Entities.Permissions
         public DateTime CreationTime { get; set; }
         public DateTime? ModificationTime { get; set; }
         public Guid? ModifierId { get; set; }
-        public Role Role { get; set; }
-        public string? Name { get; set; }
-        public string? Description { get; set; }
-        public string? Path { get; set; }
-        public Guid? ParentId { get; set; }
-        public string? Icon { get; set; }
-        public RolePermission(Role role,Guid permissionid)
+        //public Role Role { get; set; }
+        public Permission Permission { get; set; }
+        public RolePermission(Permission permission)
         {
-            Role = role;
-            RoleId = role.Id;
-            PermissionId = permissionid;
+            Permission = permission;
+            PermissionId = permission.Id;
+            CreationTime=DateTime.Now;
+            ModificationTime=DateTime.Now;
         }
     }
 }

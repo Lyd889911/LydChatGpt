@@ -21,13 +21,13 @@ namespace ChatGpt.Domain.Entities.Users
         public int MaxUseCountDaily { get; private set; }
         public int SurplusUserCountDaily { get; private set; }
         public ChatGptSetting ChatGptSetting { get; private set; }
-        public Guid RoleId { get; private set; }
+        public Role Role { get; private set; }
 
         private User()
         {
 
         }
-        internal User(string userName, string password, Uri? avatar,int maxUseCountDaily,Guid roleid)
+        internal User(string userName, string password, Uri? avatar,int maxUseCountDaily, Role role)
         {
             UserName = userName;
             PasswordHash = HashHelper.ComputeSha256Hash(password);
@@ -35,7 +35,7 @@ namespace ChatGpt.Domain.Entities.Users
             MaxUseCountDaily = maxUseCountDaily;
             SurplusUserCountDaily = maxUseCountDaily;
             ChatGptSetting = new ChatGptSetting(this);
-            RoleId =roleid;
+            Role = role;
         }
 
         public bool CheckPassword(string password)
@@ -68,14 +68,18 @@ namespace ChatGpt.Domain.Entities.Users
         {
             SurplusUserCountDaily=MaxUseCountDaily;
         }
-        public void SetRole(Guid roleid)
+        public void SetRole(Role role)
         {
-            this.RoleId = roleid;
+            this.Role = role;
         }
         public bool Equals(User user)
         {
             if(user==null) return false;
             return this.UserName == user.UserName;
+        }
+        public void Delete()
+        {
+            IsDeleted = true;
         }
     }
 }

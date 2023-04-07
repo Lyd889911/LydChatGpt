@@ -18,15 +18,10 @@ namespace ChatGpt.Domain.Entities.Users.ChatGpt
         public Image Image { get;private set; }
         public Guid UserId { get;private set; }
         public User User { get;private set; }
-
         public Guid? CreatorId { get; private set; }
-
         public DateTime CreationTime { get; private set; }
-
         public DateTime? ModificationTime { get; private set; }
-
         public Guid? ModifierId { get; private set; }
-
         private ChatGptSetting()
         {
 

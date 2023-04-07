@@ -1,4 +1,7 @@
 ﻿using ChatGpt.Domain;
+using ChatGpt.Domain.DomainServers;
+using ChatGpt.Domain.Repositorys;
+using ChatGpt.Infrastructure.Repositorys;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using System;
@@ -23,6 +26,8 @@ namespace ChatGpt.Infrastructure
                 string connStr = "Server=localhost;User ID=root;Password=123456;DataBase=gpt;";
                 opt.UseMySql(connStr, new MySqlServerVersion("8.0.30"));
             });
+            services.AddScoped<IUserRepository, UserRepository>();
+            services.AddScoped<UserDomainServer>();
             return services;
         }
     }
