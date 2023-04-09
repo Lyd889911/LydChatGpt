@@ -13,7 +13,7 @@ namespace ChatGpt.Domain.Entities.Users.ChatGpt
     {
         public Guid Id { get; set; }
         public string? ApiKey { get;private set; }
-        public Uri? Avatar { get;private set; }
+        public string? Avatar { get;private set; }
         public Chat Chat { get;private set; }
         public Image Image { get;private set; }
         public Guid UserId { get;private set; }

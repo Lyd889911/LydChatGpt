@@ -1,8 +1,7 @@
 ﻿namespace ChatGpt.WebApi.Controllers.User.Dtos
 {
-    public class UpdateUserDto
+    public class LoginRequestDto
     {
-        public Guid Id { get; set; }
         public string? UserName { get; set; }
         public string? Password { get; set; }
     }

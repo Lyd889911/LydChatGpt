@@ -26,7 +26,7 @@ namespace ChatGpt.Domain.DomainServers
         {
             Role role1 = Enum.Parse<Role>(role);
             int maxUseCountDaily = GetMaxUseCountDaily(role1);
-            Uri avatar = new Uri("http://localhost:5000/Avatar/x.jpg");
+            string avatar = "avatar/a.jpg";
             return new User(userName,password,avatar,maxUseCountDaily,role1);
         }
         /// <summary>
@@ -46,13 +46,15 @@ namespace ChatGpt.Domain.DomainServers
         public async Task<User> LoginAsync(string username,string password)
         {
             var user = await _userRepository.FirstAsync(username);
+            if (user == null)
+                throw new ArgumentNullException("账号密码错误");
             bool b = user.CheckPassword(password);
             if (b)
                 return user;
             else
                 throw new LoginException("账号密码错误");
         }
-        public async Task<User> UpdateUserAsync(Guid id,string username,string password,Uri? avatar) 
+        public async Task<User> UpdateUserAsync(Guid id,string username,string password,string? avatar) 
         {
             var user = await _userRepository.FindAsync(id);
             user.SetUserName(username);

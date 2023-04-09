@@ -17,10 +17,13 @@ namespace ChatGpt.WebApi.Controllers.User
         private readonly UserDomainServer _userDomainServer;
         private readonly GptDbContext _gptDbContext;
         private readonly IMapper _mapper;
-        public UserController(UserDomainServer userDomainServer, GptDbContext gptDbContext)
+        private readonly Jwt _jwt;
+        public UserController(UserDomainServer userDomainServer, GptDbContext gptDbContext,IMapper mapper, Jwt jwt)
         {
             this._userDomainServer = userDomainServer;
             this._gptDbContext = gptDbContext;
+            this._mapper = mapper;
+            _jwt = jwt;
         }
         [HttpPost]
         [UnitOfWork(typeof(GptDbContext))]
@@ -29,26 +32,24 @@ namespace ChatGpt.WebApi.Controllers.User
             var user = _userDomainServer.CreateUser(userDto.UserName, userDto.Password,userDto.Role);
             user = await _userDomainServer.AddUserAsync(user);
             return _mapper.Map<UserDto>(user);
-            //return new UserDto()
-            //{
-            //    UserName = user.UserName,
-            //    Avatar = user.Avatar,
-            //    MaxUseCountDaily = user.MaxUseCountDaily,
-            //    SurplusUserCountDaily = user.SurplusUserCountDaily,
-            //};
         }
+
         [HttpPost]
         [UnitOfWork(typeof(GptDbContext))]
         public async Task<UserDto> Update(UpdateUserDto userDto)
         {
-            var user = await _userDomainServer.UpdateUserAsync(userDto.Id,userDto.UserName,userDto.Password, new Uri("http://localhost:5166/b.jpeg"));
-            return new UserDto()
-            {
-                UserName = user.UserName,
-                Avatar = user.Avatar,
-                MaxUseCountDaily = user.MaxUseCountDaily,
-                SurplusUserCountDaily = user.SurplusUserCountDaily,
-            };
+            var user = await _userDomainServer.UpdateUserAsync(userDto.Id,userDto.UserName,userDto.Password, "avatar/b.jpg");
+            return _mapper.Map<UserDto>(user);
+        }
+
+        [HttpPost]
+        public async Task<LoginResponseDto> Login(LoginRequestDto loginDto)
+        {
+            var user = await _userDomainServer.LoginAsync(loginDto.UserName,loginDto.Password);
+            string jwt = _jwt.Create(user.Id, user.UserName, nameof(user.Role));
+            var dto = _mapper.Map<LoginResponseDto>(user);
+            dto.Jwt=jwt;
+            return dto;
         }
     }
 }

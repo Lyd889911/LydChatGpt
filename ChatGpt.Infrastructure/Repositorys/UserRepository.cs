@@ -34,7 +34,7 @@ namespace ChatGpt.Infrastructure.Repositorys
 
         public Task<User?> FirstAsync(string username)
         {
-            throw new NotImplementedException();
+            return _gptDbContext.Users.FirstOrDefaultAsync(x=>x.UserName == username);
         }
 
         public Task UpdateAsync(User user)

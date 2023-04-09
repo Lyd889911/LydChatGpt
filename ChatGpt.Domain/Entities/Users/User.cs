@@ -8,7 +8,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ChatGpt.Shared.Enums;
-using ChatGpt.Domain.Permissions;
 using ChatGpt.Domain.Entities.Permissions;
 
 namespace ChatGpt.Domain.Entities.Users
@@ -17,7 +16,7 @@ namespace ChatGpt.Domain.Entities.Users
     {
         public string UserName { get; private set; }
         public string PasswordHash { get; private set; }
-        public Uri? Avatar { get; private set; }
+        public string? Avatar { get; private set; }
         public int MaxUseCountDaily { get; private set; }
         public int SurplusUserCountDaily { get; private set; }
         public ChatGptSetting ChatGptSetting { get; private set; }
@@ -27,7 +26,7 @@ namespace ChatGpt.Domain.Entities.Users
         {
 
         }
-        internal User(string userName, string password, Uri? avatar,int maxUseCountDaily, Role role)
+        internal User(string userName, string password, string? avatar,int maxUseCountDaily, Role role)
         {
             UserName = userName;
             PasswordHash = HashHelper.ComputeSha256Hash(password);
@@ -47,7 +46,7 @@ namespace ChatGpt.Domain.Entities.Users
             if(!string.IsNullOrEmpty(newPassword))
                 PasswordHash = HashHelper.ComputeSha256Hash(newPassword);
         }
-        public void SetAvatar(Uri? avatar)
+        public void SetAvatar(string? avatar)
         {
             if(avatar!=null)
                 Avatar = avatar;
