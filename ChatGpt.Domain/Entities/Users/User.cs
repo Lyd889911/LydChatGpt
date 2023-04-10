@@ -19,7 +19,6 @@ namespace ChatGpt.Domain.Entities.Users
         public string? Avatar { get; private set; }
         public int MaxUseCountDaily { get; private set; }
         public int SurplusUserCountDaily { get; private set; }
-        public ChatGptSetting ChatGptSetting { get; private set; }
         public Role Role { get; private set; }
 
         private User()
@@ -33,7 +32,6 @@ namespace ChatGpt.Domain.Entities.Users
             Avatar = avatar;
             MaxUseCountDaily = maxUseCountDaily;
             SurplusUserCountDaily = maxUseCountDaily;
-            ChatGptSetting = new ChatGptSetting(this);
             Role = role;
         }
 

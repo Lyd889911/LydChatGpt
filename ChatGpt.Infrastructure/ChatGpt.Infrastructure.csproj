@@ -14,4 +14,8 @@
     <ProjectReference Include="..\ChatGpt.Domain\ChatGpt.Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Handler\" />
+  </ItemGroup>
+
 </Project>

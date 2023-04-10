@@ -24,7 +24,10 @@ builder.Services.Configure<MvcOptions>(x =>
 });
 builder.Services.AddInfrastructure();
 builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());
-
+builder.Services.AddMediatR(config =>
+{
+    config.RegisterServicesFromAssemblies(Assembly.GetExecutingAssembly());
+});
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 .AddJwtBearer(jwtoption =>
 {
@@ -41,31 +44,31 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     };
 });
 
-#region 禁止默认行为
-builder.Services.Configure<ApiBehaviorOptions>(options =>
-{
-    options.InvalidModelStateResponseFactory = (context) =>
-    {
-        if (context.ModelState.IsValid)
-            return null;
-        var error = "";
-        foreach (var item in context.ModelState)
-        {
-            var state = item.Value;
-            var message = state.Errors.FirstOrDefault(p => !string.IsNullOrWhiteSpace(p.ErrorMessage))?.ErrorMessage;
-            if (string.IsNullOrWhiteSpace(message))
-            {
-                message = state.Errors.FirstOrDefault(o => o.Exception != null)?.Exception.Message;
-            }
-            if (string.IsNullOrWhiteSpace(message))
-                continue;
-            error = message;
-            break;
-        }
-        return new ObjectResult(new ResultDto(400,error.ToString(),null));
-    };
-});
-#endregion
+//#region 禁止默认行为
+//builder.Services.Configure<ApiBehaviorOptions>(options =>
+//{
+//    options.InvalidModelStateResponseFactory = (context) =>
+//    {
+//        if (context.ModelState.IsValid)
+//            return null;
+//        var error = "";
+//        foreach (var item in context.ModelState)
+//        {
+//            var state = item.Value;
+//            var message = state.Errors.FirstOrDefault(p => !string.IsNullOrWhiteSpace(p.ErrorMessage))?.ErrorMessage;
+//            if (string.IsNullOrWhiteSpace(message))
+//            {
+//                message = state.Errors.FirstOrDefault(o => o.Exception != null)?.Exception.Message;
+//            }
+//            if (string.IsNullOrWhiteSpace(message))
+//                continue;
+//            error = message;
+//            break;
+//        }
+//        return new ObjectResult(new ResultDto(400,error.ToString(),null));
+//    };
+//});
+//#endregion
 
 var app = builder.Build();
 

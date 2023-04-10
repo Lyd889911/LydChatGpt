@@ -3,6 +3,7 @@ using System;
 using ChatGpt.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ChatGpt.Infrastructure.Migrations
 {
     [DbContext(typeof(GptDbContext))]
-    partial class GptDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230410063725_4.10.1")]
+    partial class _4101
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

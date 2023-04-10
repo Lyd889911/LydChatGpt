@@ -1,5 +1,6 @@
 ﻿using ChatGpt.Domain.Entities.Chats.ChatGpt;
 using ChatGpt.Domain.Entities.Users;
+using ChatGpt.Domain.Entities.Users.ChatGpt;
 using Microsoft.EntityFrameworkCore;
 
 namespace ChatGpt.Infrastructure
@@ -7,6 +8,7 @@ namespace ChatGpt.Infrastructure
     public class GptDbContext:DbContext
     {
         public DbSet<User> Users { get; set; }
+        public DbSet<ChatGptSetting> ChatGptSettings { get; set; }
         public DbSet<ChatMessage> ChatMessages { get; set; }
         public GptDbContext(DbContextOptions<GptDbContext> options) : base(options)
         {

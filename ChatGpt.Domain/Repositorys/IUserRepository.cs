@@ -11,9 +11,9 @@ namespace ChatGpt.Domain.Repositorys
     public interface IUserRepository
     {
         Task<User?> FindAsync(Guid id);
-        Task<User?> FirstAsync(string username);
+        Task<User?> FindByUserNameAsync(string username);
         Task AddAsync(User user);
         Task UpdateAsync(User user);
-        Task DeleteAsync(Guid userid);
+        Task<List<User>> List(int index, int size);
     }
 }

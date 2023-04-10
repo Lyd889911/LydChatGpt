@@ -42,13 +42,7 @@ namespace ChatGpt.WebApi.Middlewares
                     responseContent = JsonConvert.SerializeObject(new ResultDto(200, "操作成功", null));
                 else
                 {
-                    //？？？？？？？？？？？？？？？？？？？？？？
-                    ObjectResult obj = JsonConvert.DeserializeObject<ObjectResult>(responseContent);
-                    string name = obj.Value.GetType().Name;
-                    if (obj.GetType().Name == nameof(ResultDto))
-                        responseContent = JsonConvert.SerializeObject(obj);
-                    else
-                        responseContent = JsonConvert.SerializeObject(new ResultDto(200, null, obj.Value));
+                    responseContent = JsonConvert.SerializeObject(new ResultDto(200, null, JsonConvert.DeserializeObject(responseContent)));
                 }
 
 

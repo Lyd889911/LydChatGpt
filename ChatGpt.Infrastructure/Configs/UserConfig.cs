@@ -19,7 +19,6 @@ namespace ChatGpt.Infrastructure.Configs
             builder.Property(x => x.UserName).HasMaxLength(50);
             builder.Property(x=>x.PasswordHash).HasMaxLength(100);
             builder.HasIndex(x => x.UserName).HasDatabaseName("user_idx_username");
-            builder.HasOne(x => x.ChatGptSetting).WithOne(x => x.User);
             builder.Property(x => x.Role).HasConversion<string>();
         }
     }

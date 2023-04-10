@@ -3,6 +3,7 @@ using System;
 using ChatGpt.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ChatGpt.Infrastructure.Migrations
 {
     [DbContext(typeof(GptDbContext))]
-    partial class GptDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230410062506_4.10")]
+    partial class _410
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -89,15 +91,6 @@ namespace ChatGpt.Infrastructure.Migrations
                     b.Property<Guid?>("CreatorId")
                         .HasColumnType("char(36)");
 
-                    b.Property<Guid?>("DeleteCreatorId")
-                        .HasColumnType("char(36)");
-
-                    b.Property<DateTime?>("DeleteTime")
-                        .HasColumnType("datetime(6)");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("tinyint(1)");
-
                     b.Property<DateTime?>("ModificationTime")
                         .HasColumnType("datetime(6)");
 
@@ -108,6 +101,9 @@ namespace ChatGpt.Infrastructure.Migrations
                         .HasColumnType("char(36)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("UserId")
+                        .IsUnique();
 
                     b.ToTable("chatgptsetting", (string)null);
                 });
@@ -173,6 +169,12 @@ namespace ChatGpt.Infrastructure.Migrations
 
             modelBuilder.Entity("ChatGpt.Domain.Entities.Users.ChatGpt.ChatGptSetting", b =>
                 {
+                    b.HasOne("ChatGpt.Domain.Entities.Users.User", "User")
+                        .WithOne("ChatGptSetting")
+                        .HasForeignKey("ChatGpt.Domain.Entities.Users.ChatGpt.ChatGptSetting", "UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.OwnsOne("ChatGpt.Domain.Entities.Users.ChatGpt.Chat", "Chat", b1 =>
                         {
                             b1.Property<Guid>("ChatGptSettingId")
@@ -231,6 +233,14 @@ namespace ChatGpt.Infrastructure.Migrations
                         .IsRequired();
 
                     b.Navigation("Image")
+                        .IsRequired();
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("ChatGpt.Domain.Entities.Users.User", b =>
+                {
+                    b.Navigation("ChatGptSetting")
                         .IsRequired();
                 });
 #pragma warning restore 612, 618

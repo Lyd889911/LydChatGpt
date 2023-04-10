@@ -11,5 +11,6 @@ namespace ChatGpt.WebApi.Controllers.User.Dtos
         public string? Avatar { get; set; }
         public int MaxUseCountDaily { get; set; }
         public int SurplusUserCountDaily { get; set; }
+        public string? Role { get; set; }
     }
 }

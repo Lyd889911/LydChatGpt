@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using ChatGpt.Domain.DomainServers;
 using ChatGpt.Domain.Entities.Users;
+using ChatGpt.Domain.Repositorys;
 using ChatGpt.Infrastructure;
 using ChatGpt.Shared.Enums;
 using ChatGpt.WebApi.Attributes;
@@ -16,14 +17,16 @@ namespace ChatGpt.WebApi.Controllers.User
     {
         private readonly UserDomainServer _userDomainServer;
         private readonly GptDbContext _gptDbContext;
+        private readonly IUserRepository _userRepository;
         private readonly IMapper _mapper;
         private readonly Jwt _jwt;
-        public UserController(UserDomainServer userDomainServer, GptDbContext gptDbContext,IMapper mapper, Jwt jwt)
+        public UserController(UserDomainServer userDomainServer, GptDbContext gptDbContext,IMapper mapper, Jwt jwt, IUserRepository userRepository)
         {
             this._userDomainServer = userDomainServer;
             this._gptDbContext = gptDbContext;
             this._mapper = mapper;
             _jwt = jwt;
+            this._userRepository = userRepository;
         }
         [HttpPost]
         [UnitOfWork(typeof(GptDbContext))]
@@ -50,6 +53,13 @@ namespace ChatGpt.WebApi.Controllers.User
             var dto = _mapper.Map<LoginResponseDto>(user);
             dto.Jwt=jwt;
             return dto;
+        }
+
+        [HttpGet]
+        public async Task<List<UserDto>> List(UserListDto userListDto)
+        {
+            var list = await _userRepository.List(userListDto.Index, userListDto.Size);
+            return _mapper.Map<List<UserDto>>(list);
         }
     }
 }

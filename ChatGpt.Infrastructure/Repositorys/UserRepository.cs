@@ -21,20 +21,19 @@ namespace ChatGpt.Infrastructure.Repositorys
             await _gptDbContext.Users.AddAsync(user);
         }
 
-        public async Task DeleteAsync(Guid userid)
-        {
-            var user = await _gptDbContext.Users.FindAsync(userid);
-            user.Delete();
-        }
-
         public async Task<User?> FindAsync(Guid id)
         {
             return await _gptDbContext.Users.FindAsync(id);
         }
 
-        public Task<User?> FirstAsync(string username)
+        public Task<User?> FindByUserNameAsync(string username)
         {
             return _gptDbContext.Users.FirstOrDefaultAsync(x=>x.UserName == username);
+        }
+
+        public Task<List<User>> List(int index, int size)
+        {
+            return _gptDbContext.Users.Skip((index-1)*size).Take(size).ToListAsync();
         }
 
         public Task UpdateAsync(User user)

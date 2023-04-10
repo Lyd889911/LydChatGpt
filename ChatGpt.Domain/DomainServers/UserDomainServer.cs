@@ -45,7 +45,7 @@ namespace ChatGpt.Domain.DomainServers
         /// </summary>
         public async Task<User> LoginAsync(string username,string password)
         {
-            var user = await _userRepository.FirstAsync(username);
+            var user = await _userRepository.FindByUserNameAsync(username);
             if (user == null)
                 throw new ArgumentNullException("账号密码错误");
             bool b = user.CheckPassword(password);
@@ -54,6 +54,9 @@ namespace ChatGpt.Domain.DomainServers
             else
                 throw new LoginException("账号密码错误");
         }
+        /// <summary>
+        /// 更新用户
+        /// </summary>
         public async Task<User> UpdateUserAsync(Guid id,string username,string password,string? avatar) 
         {
             var user = await _userRepository.FindAsync(id);
