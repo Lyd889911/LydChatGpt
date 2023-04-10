@@ -10,7 +10,7 @@ namespace ChatGpt.WebApi.Controllers
     [ApiController]
     public class ChatGptController : ControllerBase
     {
-       
+
         
     }
 }

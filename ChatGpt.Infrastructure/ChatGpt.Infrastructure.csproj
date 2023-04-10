@@ -7,15 +7,17 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Handler\**" />
+    <EmbeddedResource Remove="Handler\**" />
+    <None Remove="Handler\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Pomelo.EntityFrameworkCore.MySql" Version="6.0.0" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\ChatGpt.Domain\ChatGpt.Domain.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Handler\" />
   </ItemGroup>
 
 </Project>

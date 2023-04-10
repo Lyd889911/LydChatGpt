@@ -13,7 +13,6 @@ namespace ChatGpt.Domain.Repositorys
         Task<User?> FindAsync(Guid id);
         Task<User?> FindByUserNameAsync(string username);
         Task AddAsync(User user);
-        Task UpdateAsync(User user);
         Task<List<User>> List(int index, int size);
     }
 }

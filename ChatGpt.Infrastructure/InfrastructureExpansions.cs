@@ -23,11 +23,14 @@ namespace ChatGpt.Infrastructure
         {
             services.AddDbContext<GptDbContext>(opt =>
             {
-                string connStr = "Server=localhost;User ID=root;Password=lyd889911;DataBase=gpt;";
+                string connStr = "Server=localhost;User ID=root;Password=123456;DataBase=gpt;";
                 opt.UseMySql(connStr, new MySqlServerVersion("8.0.30"));
             });
             services.AddScoped<IUserRepository, UserRepository>();
+            services.AddScoped<IChatGptSettingRepository, ChatGptSettingRepository>();
             services.AddScoped<UserDomainServer>();
+            services.AddScoped<SettingDemainServer>();
+            services.AddScoped<IStorageClient, AvatarStorageClient>();
             return services;
         }
     }

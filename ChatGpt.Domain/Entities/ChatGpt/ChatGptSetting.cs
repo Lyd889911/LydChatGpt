@@ -1,4 +1,5 @@
 ﻿using ChatGpt.Shared.Base;
+using ChatGpt.Shared.Constants;
 using ChatGpt.Shared.Enums;
 using System;
 using System.Collections.Generic;
@@ -20,11 +21,11 @@ namespace ChatGpt.Domain.Entities.Users.ChatGpt
         {
 
         }
-        public ChatGptSetting(Guid userid)
+        public ChatGptSetting(Guid userid,string avatar)
         {
             this.Id = Guid.NewGuid();
             this.UserId = userid;
-            this.Avatar = "avatar/b.jpg";
+            this.Avatar = avatar;
             Chat = new(2000, 0.1m);
             Image = new(2, ChatGptImageSize._512);
             CreationTime=DateTime.Now;
@@ -35,15 +36,23 @@ namespace ChatGpt.Domain.Entities.Users.ChatGpt
         
         public void SetApiKey(string apikey)
         {
-            ApiKey = apikey;
+            if(apikey!=SettingConstant.ApiKeyMask)
+                ApiKey = apikey;
+        }
+        public void SetAvatar(string avatar)
+        {
+            if(!string.IsNullOrEmpty(avatar)&&avatar!=Avatar)
+                Avatar = avatar;
         }
         public void SetChat(Chat chat)
         {
-            Chat = chat;
+            if(chat!=null)
+                Chat = chat;
         }
         public void SetImage(Image image)
         {
-            Image = image;
+            if (image != null)
+                Image = image;
         }
 
     }

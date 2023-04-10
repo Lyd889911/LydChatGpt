@@ -23,6 +23,7 @@ namespace ChatGpt.Infrastructure.Configs
             {
                 x.Property(x => x.Size).HasConversion<string>();
             });
+            builder.HasQueryFilter(b => b.IsDeleted == false);
         }
     }
 }

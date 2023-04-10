@@ -20,6 +20,7 @@ namespace ChatGpt.Infrastructure.Configs
             builder.Property(x=>x.PasswordHash).HasMaxLength(100);
             builder.HasIndex(x => x.UserName).HasDatabaseName("user_idx_username");
             builder.Property(x => x.Role).HasConversion<string>();
+            builder.HasQueryFilter(b => b.IsDeleted == false);
         }
     }
 }

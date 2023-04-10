@@ -16,6 +16,7 @@ namespace ChatGpt.Infrastructure.Configs
             builder.ToTable("chatmessage");
             builder.HasKey(x => x.Id);
             builder.HasIndex(x => x.UserId);
+            builder.HasQueryFilter(b => b.IsDeleted == false);
         }
     }
 }

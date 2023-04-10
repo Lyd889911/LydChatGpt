@@ -8,8 +8,10 @@ namespace ChatGpt.WebApi.AutoMapperProfiles
     {
         public UserMapperProfile()
         {
-            CreateMap<User, UserDto>().ForMember(dest => dest.Role, opt => opt.MapFrom(src => nameof(src.Role)));
-            CreateMap<User, LoginResponseDto>();
+            CreateMap<User, UserDto>()
+                .ForMember(dest => dest.Role, opt => opt.MapFrom(src => src.Role.ToString()));
+            CreateMap<User, LoginResponseDto>()
+                .ForMember(dest => dest.Role, opt => opt.MapFrom(src => src.Role.ToString()));
         }
     }
 }

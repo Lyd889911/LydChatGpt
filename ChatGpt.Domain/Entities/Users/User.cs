@@ -25,13 +25,13 @@ namespace ChatGpt.Domain.Entities.Users
         {
 
         }
-        internal User(string userName, string password, string? avatar,int maxUseCountDaily, Role role)
+        internal User(string userName, string password, string? avatar,Role role)
         {
             UserName = userName;
             PasswordHash = HashHelper.ComputeSha256Hash(password);
             Avatar = avatar;
-            MaxUseCountDaily = maxUseCountDaily;
-            SurplusUserCountDaily = maxUseCountDaily;
+            MaxUseCountDaily = GetMaxUseCountDaily(role);
+            SurplusUserCountDaily = MaxUseCountDaily;
             Role = role;
         }
 
@@ -68,6 +68,10 @@ namespace ChatGpt.Domain.Entities.Users
         public void SetRole(Role role)
         {
             this.Role = role;
+            int max = this.MaxUseCountDaily;
+            this.MaxUseCountDaily = GetMaxUseCountDaily(role);
+            max = MaxUseCountDaily - (max - SurplusUserCountDaily);
+            this.SurplusUserCountDaily = max<0?0:max;
         }
         public bool Equals(User user)
         {
@@ -77,6 +81,17 @@ namespace ChatGpt.Domain.Entities.Users
         public void Delete()
         {
             IsDeleted = true;
+        }
+        public int GetMaxUseCountDaily(Role role)
+        {
+            switch (role)
+            {
+                case Role.SuperAdmin: return 2000;
+                case Role.Admin: return 1000;
+                case Role.SVip: return 100;
+                case Role.Vip: return 50;
+                default: return 2;
+            }
         }
     }
 }

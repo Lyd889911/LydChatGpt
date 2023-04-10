@@ -4,8 +4,10 @@ using ChatGpt.Domain.Repositorys;
 using ChatGpt.Shared;
 using ChatGpt.Shared.Enums;
 using ChatGpt.Shared.Exceptions;
+using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -15,19 +17,21 @@ namespace ChatGpt.Domain.DomainServers
     public class UserDomainServer
     {
         private readonly IUserRepository _userRepository;
-        public UserDomainServer(IUserRepository userRepository)
+        private readonly IConfiguration _configuration;
+        public UserDomainServer(IUserRepository userRepository, IConfiguration configuration)
         {
             this._userRepository = userRepository;
+            this._configuration = configuration;
         }
         /// <summary>
         /// 创建用户
         /// </summary>
-        public User CreateUser(string userName, string password,string role)
+        public User CreateUser(string userName, string password,string role,string avatar)
         {
             Role role1 = Enum.Parse<Role>(role);
-            int maxUseCountDaily = GetMaxUseCountDaily(role1);
-            string avatar = "avatar/a.jpg";
-            return new User(userName,password,avatar,maxUseCountDaily,role1);
+            if(string.IsNullOrEmpty(avatar))
+                avatar = _configuration["DefaultAvatar"];
+            return new User(userName,password,avatar,role1);
         }
         /// <summary>
         /// 添加用户
@@ -57,46 +61,25 @@ namespace ChatGpt.Domain.DomainServers
         /// <summary>
         /// 更新用户
         /// </summary>
-        public async Task<User> UpdateUserAsync(Guid id,string username,string password,string? avatar) 
+        public async Task<User> UpdateUserAsync(Guid id,string username,string password,string role,string? avatar) 
         {
             var user = await _userRepository.FindAsync(id);
+            Role role1 = Enum.Parse<Role>(role);
             user.SetUserName(username);
             user.SetPassword(password);
             user.SetAvatar(avatar);
+            user.SetRole(role1);
             return user;
         }
         /// <summary>
-        /// 上传头像
+        /// 删除
         /// </summary>
-        public async Task<Uri?> UploadAsync(Stream stream, string fileName, CancellationToken cancellationToken = default)
+        /// <param name="userid"></param>
+        /// <returns></returns>
+        public async Task DeleteAsync(Guid userid)
         {
-            string hash = HashHelper.ComputeSha256Hash(stream);
-            long length = stream.Length;
-            DateTime today = DateTime.Now;
-            //文件的目录,路径
-            string path = $"Avatar/{hash}/{fileName}";
-            //查找是否存在这个文件,如果存在就不用上传了,直接更改一个修改日期就行了
-            if(File.Exists(Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/"+path)))
-                return new Uri("http://localhost:5000/" + path);
-
-            //每次都要把指针的位置归零
-            stream.Position = 0;
-            using FileStream fas = new FileStream(path, FileMode.OpenOrCreate, FileAccess.ReadWrite);
-            stream.CopyTo(fas);
-            
-            stream.Position = 0;
-            return new Uri("http://localhost:5000/" + path);
-        }
-        private int GetMaxUseCountDaily(Role role)
-        {
-            switch (role)
-            {
-                case Role.SuperAdmin: return 2000;
-                case Role.Admin:return 1000;
-                case Role.SVip:return 100;
-                case Role.Vip:return 50;
-                    default: return 2;
-            }
+            var user = await _userRepository.FindAsync(userid);
+            user.Delete();
         }
     }
 }

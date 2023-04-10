@@ -9,8 +9,7 @@ namespace ChatGpt.Domain.Repositorys
 {
     public interface IChatGptSettingRepository
     {
-        Task AddAsync(Guid userid);
-        Task UpdateAsync(ChatGptSetting setting);
+        Task AddAsync(ChatGptSetting setting);
         Task<ChatGptSetting> FindByUserIdAsync(Guid userid);
     }
 }

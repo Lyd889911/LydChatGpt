@@ -35,10 +35,5 @@ namespace ChatGpt.Infrastructure.Repositorys
         {
             return _gptDbContext.Users.Skip((index-1)*size).Take(size).ToListAsync();
         }
-
-        public Task UpdateAsync(User user)
-        {
-            throw new NotImplementedException();
-        }
     }
 }
